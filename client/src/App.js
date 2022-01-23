@@ -1,38 +1,20 @@
-import socketClient  from "socket.io-client";
 import React, {useEffect, useState} from "react";
+import ChatRoom from "./components/ChatRoom";
+import MainPage from "./components/MainPage";
+import socketClient from "socket.io-client";
 
-let socket = socketClient ("http://localhost:3001/");
-
+let socket = socketClient("http://localhost:3001/");
 
 function App() {
-  const [messages, setMessages] = useState(["cat"]);
-  const [chatMessage, setChatMessage] = useState("");
-
-  useEffect(()=> {
-    socket.on("message", (message)=> {
-      let arr = [...messages];
-      arr.push(message);
-      if(messages !== arr){
-        setMessages(arr);
-      }
-    })
-  },[messages])
-
-  function handleSend(e) {
-    e.preventDefault();
-    socket.emit("chatMessage", chatMessage);
-    setChatMessage("");
-  }
+  const [username, setUsername] = useState();
+  const [roomName, setRoomName] = useState();
 
   return (
     <div className="App">
-      {messages.map((message, index) => {
-        return (<div key={index}>{message}</div>);
-      })}
-      <form onClick={handleSend}>
-        <input type="text" value={chatMessage} onChange={(e)=>{setChatMessage(e.target.value)}}/>
-        <button type="submit">Send</button>
-      </form>
+       {(!username && !roomName ) ? <MainPage setUsername ={setUsername} setRoomName = {setRoomName} /> : 
+        <ChatRoom username= {username} roomName = {roomName} socket= {socket} />
+       }
+   
     </div>
   );
 }
