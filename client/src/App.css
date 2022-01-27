@@ -1,5 +1,70 @@
 .App {
   min-height: 100vh;
-  background-color: bisque;
+  background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
+.mainPageContainer{
+  width: 60vw;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+.mainPageForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  align-self: center;
+  flex: 7;
+  background-color: #ffe5d9;
+  box-sizing: border-box;
+  border-radius: 0px 0px 10px 10px;
+}
+.mainPageFormContent{
+  display: flex;
+  flex-direction: column;
+  margin-top: 15vh;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.accessInput{
+  display: flex;
+  gap: 10px;
+  color: #1a1a1a;
+  font-size: 23px;
+  height: 50px;
+}
+.accessInput input{
+  font-size: 17px;
+  border-radius: 5px;
+  border: 1px solid black;
+  height: 26px;
+}
+.mainPageFormContent button{
+  align-self: flex-end;
+  font-size: 20px;
+  background-color: #d8e2dc;
+  border: #1a1a1a 1px solid;
+  padding: 2px 15px 2px 15px;
+  border-radius: 5px;
+}
+.mainPageFormContent button:hover{
+  background-color: #bfcfc5; ;
+}
+.mainPageFormContent button:active{
+  background-color: #b8c5bd; ;
+}
+.title{
+  border-radius: 10px 10px 0px 0px;
+  background-color: #d8e2dc;
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+  padding-left: 20px;
+  flex: 1;
+}

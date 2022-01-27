@@ -36,7 +36,7 @@ io.on("connection", (socket) => {
     let user = userList.find((user) => user.id == socket.id);
     let index = userList.indexOf(user);
     userList.splice(index, 1);
-    if(user.username){
+    if(user && user.username){
       io.emit("message", {
         text: `${user.username} has left the chat`,
         username: "ChatBot",
