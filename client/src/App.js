@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import ChatRoom from "./components/ChatRoom";
 import MainPage from "./components/MainPage";
 import socketClient from "socket.io-client";
+import "./App.css";
 
 let socket = socketClient("http://localhost:3001/");
 

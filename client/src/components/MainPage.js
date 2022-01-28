@@ -11,13 +11,22 @@ export default function MainPage({ setUsername, setRoomName }) {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        Username:
-        <input type="text" value={formUsername} onChange={(e)=> {setFormUsername(e.target.value)}}/>
-        Room
-        <input type="text" value={formRoomName}  onChange={(e)=> {setFormRoomName(e.target.value)}}/>
-        <button type="submit">Enter</button>
+    <div className="mainPageContainer">
+      <div className="title">ChatApp</div>
+      <form onSubmit={handleSubmit} className="mainPageForm">
+        <div className="mainPageFormContent">
+          <div className="accessInput">
+            Username:
+            <input type="text" value={formUsername} onChange={(e) => { setFormUsername(e.target.value) }} />
+          </div>
+          <div className="accessInput">
+            Room Name:
+            <input type="text" value={formRoomName} onChange={(e) => { setFormRoomName(e.target.value) }} />
+          </div>
+
+
+          <button type="submit">Enter</button>
+        </div>
       </form>
     </div>
   );

@@ -50,11 +50,14 @@ io.on("connection", (socket) => {
     let index = userList.indexOf(user);
     userList.splice(index, 1);
     socket.leave(user.roomName);
-    io.to(user.roomName).emit("message", {
-      text: `${user.username} has left the chat`,
-      username: "ChatBot",
-      roomName: user.roomName,
-    });
+    if(user && user.username){
+      io.emit("message", {
+        text: `${user.username} has left the chat`,
+        username: "ChatBot",
+        roomName: user.roomName,
+      });
+    }
+    
   });
 });
 
