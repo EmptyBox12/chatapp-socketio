@@ -12,12 +12,13 @@ const userList = [];
 io.on("connection", (socket) => {
   socket.on("join-room", ({ username, roomName }) => {
     let user = { username, roomName, id: socket.id };
+    socket.join(roomName);
     userList.push(user);
     socket.emit("message", {
       username: "ChatBot",
       text: "Welcome to the chat!",
     });
-    socket.broadcast.emit("message", {
+    socket.to(roomName).emit("message", {
       username: "ChatBot",
       text: `${username} joined the chat!`,
     });
@@ -25,9 +26,21 @@ io.on("connection", (socket) => {
 
   socket.on("chatMessage", ({ chatMessage }) => {
     let user = userList.find((user) => user.id == socket.id);
-    io.emit("message", {
+    io.to(user.roomName).emit("message", {
       text: chatMessage,
       username: user.username,
+      roomName: user.roomName,
+    });
+  });
+
+  socket.on("leave-room", () => {
+    let user = userList.find((user) => user.id == socket.id);
+    let index = userList.indexOf(user);
+    userList.splice(index, 1);
+    socket.leave(user.roomName);
+    io.to(user.roomName).emit("message", {
+      text: `${user.username} has left the chat`,
+      username: "ChatBot",
       roomName: user.roomName,
     });
   });
@@ -36,7 +49,8 @@ io.on("connection", (socket) => {
     let user = userList.find((user) => user.id == socket.id);
     let index = userList.indexOf(user);
     userList.splice(index, 1);
-    io.emit("message", {
+    socket.leave(user.roomName);
+    io.to(user.roomName).emit("message", {
       text: `${user.username} has left the chat`,
       username: "ChatBot",
       roomName: user.roomName,

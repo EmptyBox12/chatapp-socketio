@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
        {(!username && !roomName ) ? <MainPage setUsername ={setUsername} setRoomName = {setRoomName} /> : 
-        <ChatRoom username= {username} roomName = {roomName} socket= {socket} />
+        <ChatRoom username= {username} roomName = {roomName} socket= {socket} setUsername ={setUsername} setRoomName = {setRoomName} />
        }
    
     </div>

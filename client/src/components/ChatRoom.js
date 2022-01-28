@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 
-export default function ChatRoom({username, roomName, socket}) {
+export default function ChatRoom({username, roomName, socket, setUsername, setRoomName}) {
   const [messages, setMessages] = useState([]);
   const [chatMessage, setChatMessage] = useState("");
 
@@ -27,6 +27,11 @@ export default function ChatRoom({username, roomName, socket}) {
 
   return (
     <div>
+      <button onClick={()=> {
+        socket.emit("leave-room");
+        setUsername();
+        setRoomName();
+      }}>Back</button>
       {messages.map((message, index) => {
         return <div key={index}>{message.username}: {message.text}</div>;
       })}
