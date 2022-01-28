@@ -30,6 +30,7 @@ io.on("connection", (socket) => {
       text: chatMessage,
       username: user.username,
       roomName: user.roomName,
+      id: user.id,
     });
   });
 
@@ -49,15 +50,13 @@ io.on("connection", (socket) => {
     let user = userList.find((user) => user.id == socket.id);
     let index = userList.indexOf(user);
     userList.splice(index, 1);
-    socket.leave(user.roomName);
-    if(user && user.username){
+    if (user && user.username) {
       io.emit("message", {
         text: `${user.username} has left the chat`,
         username: "ChatBot",
         roomName: user.roomName,
       });
     }
-    
   });
 });
 

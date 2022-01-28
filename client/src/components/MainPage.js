@@ -23,8 +23,6 @@ export default function MainPage({ setUsername, setRoomName }) {
             Room Name:
             <input type="text" value={formRoomName} onChange={(e) => { setFormRoomName(e.target.value) }} />
           </div>
-
-
           <button type="submit">Enter</button>
         </div>
       </form>
