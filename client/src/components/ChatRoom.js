@@ -25,10 +25,12 @@ export default function ChatRoom({
         }
         return [...prevState, message];
       });
-      if (socket.id == message.id) {
-        ownRef.current.scrollIntoView();
-      } else {
-        messageRef.current.scrollIntoView();
+      if (messageRef.current) {
+        if (socket.id == message.id) {
+          ownRef.current.scrollIntoView();
+        } else {
+          messageRef.current.scrollIntoView();
+        }
       }
     });
   }, []);
@@ -46,8 +48,8 @@ export default function ChatRoom({
         <button
           onClick={() => {
             socket.emit("leave-room");
-            setUsername("");
-            setRoomName("");
+            setUsername();
+            setRoomName();
           }}
         >
           Back
@@ -55,7 +57,7 @@ export default function ChatRoom({
       </div>
       <div className="chatMain">
         <div className="chatMessages">
-          {messages.map((message, index) => {
+          {messages && messages.map((message, index) => {
             return message.id && socket.id === message.id ? (
               <div ref={ownRef} className="ownMessage" key={index}>
                 {message.text}
