@@ -25,7 +25,7 @@ export default function ChatRoom({
         }
         return [...prevState, message];
       });
-      if (username == message.username) {
+      if (socket.id == message.id) {
         ownRef.current.scrollIntoView();
       } else {
         messageRef.current.scrollIntoView();
@@ -71,7 +71,7 @@ export default function ChatRoom({
 
         <form onSubmit={handleSend}>
           <input
-            required="true"
+            required={true}
             type="text"
             value={chatMessage}
             onChange={(e) => {
