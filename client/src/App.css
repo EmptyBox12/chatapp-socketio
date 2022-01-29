@@ -141,6 +141,7 @@
 .ownMessage{
   align-self: flex-end;
   margin-right: 25px;
+  background-color: #E8E8E4;
 }
 .chatMain form{
   background-color: #FEC89A;
