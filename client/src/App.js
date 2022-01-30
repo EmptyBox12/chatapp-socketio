@@ -4,7 +4,7 @@ import MainPage from "./components/MainPage";
 import socketClient from "socket.io-client";
 import "./App.css";
 
-let socket = socketClient("http://localhost:3001/");
+let socket = socketClient("https://chatapp-socket-io-server.herokuapp.com/");
 
 function App() {
   const [username, setUsername] = useState();
