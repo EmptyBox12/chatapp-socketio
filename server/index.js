@@ -6,8 +6,11 @@ const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: "*",
 });
-
+const cors = require('cors')
 const userList = [];
+
+app.use(cors());
+
 
 io.on("connection", (socket) => {
   socket.on("join-room", ({ username, roomName }) => {
