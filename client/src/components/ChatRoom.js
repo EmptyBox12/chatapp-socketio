@@ -9,6 +9,7 @@ export default function ChatRoom({
 }) {
   const [messages, setMessages] = useState([]);
   const [chatMessage, setChatMessage] = useState("");
+  const [loading, setLoading] = useState(true);
   const ownRef = useRef();
   const messageRef = useRef();
 
@@ -23,6 +24,7 @@ export default function ChatRoom({
         if (message.id && message.id === prevState[prevState.length - 1].id) {
           message.username = "";
         }
+        setLoading(false);
         return [...prevState, message];
       });
       if (messageRef.current) {
@@ -42,47 +44,51 @@ export default function ChatRoom({
   }
 
   return (
-    <div className="chatContainer">
-      <div className="title chatRoom">
-        <div>ChatApp</div>
-        <button
-          onClick={() => {
-            socket.emit("leave-room");
-            setUsername();
-            setRoomName();
-          }}
-        >
-          Back
-        </button>
-      </div>
-      <div className="chatMain">
-        <div className="chatMessages">
-          {messages && messages.map((message, index) => {
-            return message.id && socket.id === message.id ? (
-              <div ref={ownRef} className="ownMessage" key={index}>
-                {message.text}
-              </div>
-            ) : (
-              <div ref={messageRef} className="message" key={index}>
-                <div className="messageUsername">{message.username}</div>
-                <div className="messageContent">{message.text}</div>
-              </div>
-            );
-          })}
-        </div>
+    <div  className={loading ? "loadingContainer" : "chatContainer"}>
+      {!loading &&
+        <>
+          <div className="title chatRoom">
+            <div>ChatApp</div>
+            <button
+              onClick={() => {
+                socket.emit("leave-room");
+                setUsername();
+                setRoomName();
+              }}
+            >
+              Back
+            </button>
+          </div>
+          <div className="chatMain">
+            <div className="chatMessages">
+              {messages && messages.map((message, index) => {
+                return message.id && socket.id === message.id ? (
+                  <div ref={ownRef} className="ownMessage" key={index}>
+                    {message.text}
+                  </div>
+                ) : (
+                  <div ref={messageRef} className="message" key={index}>
+                    <div className="messageUsername">{message.username}</div>
+                    <div className="messageContent">{message.text}</div>
+                  </div>
+                );
+              })}
+            </div>
 
-        <form onSubmit={handleSend}>
-          <input
-            required={true}
-            type="text"
-            value={chatMessage}
-            onChange={(e) => {
-              setChatMessage(e.target.value);
-            }}
-          />
-          <button type="submit"></button>
-        </form>
-      </div>
+            <form onSubmit={handleSend}>
+              <input
+                required={true}
+                type="text"
+                value={chatMessage}
+                onChange={(e) => {
+                  setChatMessage(e.target.value);
+                }}
+              />
+              <button type="submit"></button>
+            </form>
+          </div>
+        </>}
+      {loading && <div className="loading">Loading...</div>}
     </div>
   );
 }

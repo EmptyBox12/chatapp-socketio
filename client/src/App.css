@@ -198,4 +198,19 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
-
+.loading{
+  font-size: 40px;
+  font-weight: 400;
+  color: #1a1a1a;
+}
+.loadingContainer{
+  width: 60vw;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: #3e3e3e 1px 3px 10px 1px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffe5d9;
+}
